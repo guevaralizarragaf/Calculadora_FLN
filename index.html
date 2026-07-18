@@ -9,9 +9,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --blue-deep:#141d63;
-    --blue:#1f2c96;
-    --blue-glow:#3547c9;
+    --blue-deep:#0d1a9e;
+    --blue:#1428d6;
+    --blue-glow:#3d54ff;
     --orange:#ff5a2e;
     --orange-dark:#e04620;
     --teal:#0ea893;
@@ -55,12 +55,14 @@
     position:sticky; top:0; z-index:20;
   }
   .logo-mark{
-    width:44px;height:44px;border-radius:50%;
-    background:rgba(255,255,255,0.12);
+    width:48px;height:48px;border-radius:0;
+    background:#fff;
     display:flex;align-items:center;justify-content:center;
     flex:0 0 auto;
+    overflow:hidden;
+    box-shadow:0 2px 8px rgba(0,0,0,0.18);
   }
-  .logo-mark svg{width:26px;height:26px;}
+  .logo-mark img{width:100%;height:100%;object-fit:contain;padding:3px;}
   .topbar h1{
     color:#fff;
     font-size:clamp(16px,2.4vw,24px);
@@ -165,6 +167,26 @@
   }
   .ganado-ticket .breakdown span{display:block;}
 
+  /* ---------- disclaimer ---------- */
+  .disclaimer{
+    margin-top:16px;
+    background:#fff4e9;
+    border:1px solid #ffcfa3;
+    border-left:5px solid var(--orange);
+    border-radius:12px;
+    padding:14px 18px;
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+  }
+  .disclaimer .icon{
+    font-size:18px; line-height:1; flex:0 0 auto; margin-top:1px;
+  }
+  .disclaimer p{
+    margin:0; font-size:13px; line-height:1.55; color:#7a3d0f;
+  }
+  .disclaimer strong{color:var(--orange-dark);}
+
   /* ---------- table card ---------- */
   .table-card{
     margin-top:28px;
@@ -245,6 +267,9 @@
   .condicion-text{font-size:12px; color:var(--ink-soft); max-width:280px; line-height:1.4; display:block;}
   .money-cell{font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:13.5px; color:var(--purple-2); white-space:nowrap;}
   .mix-cell{font-family:'IBM Plex Mono',monospace; font-weight:600;}
+  .mix-cell .mix-wrap{display:flex; align-items:center; gap:4px;}
+  .mix-cell input[type=number]{width:58px; padding:6px 6px; text-align:right;}
+  .mix-cell .pct-sign{color:var(--ink-soft); font-size:12.5px;}
   .min-cell{font-family:'IBM Plex Mono',monospace; color:var(--ink-soft);}
 
   /* ---------- bonus section ---------- */
@@ -315,10 +340,7 @@
 
 <div class="topbar">
   <div class="logo-mark">
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="9" cy="9" r="6.5" stroke="white" stroke-width="1.6"/>
-      <circle cx="15" cy="15" r="6.5" stroke="white" stroke-width="1.6"/>
-    </svg>
+    <img src="https://github.com/guevaralizarragaf/Calculadora_FLN/blob/main/assets/logo%20solo.png?raw=true" alt="Logo Fortalecernos SAC">
   </div>
   <div>
     <div class="sub">Fortalecernos SAC</div>
@@ -333,7 +355,7 @@
       <label for="sueldoBasico">Sueldo básico</label>
       <div class="input-row">
         <span class="prefix">S/</span>
-        <input type="number" id="sueldoBasico" min="0" step="0.01" value="1200" inputmode="decimal">
+        <input type="number" id="sueldoBasico" min="0" step="0.01" value="1130" inputmode="decimal">
       </div>
     </div>
     <div class="field-card">
@@ -349,6 +371,14 @@
       <div class="breakdown" id="ganadoBreakdown"></div>
     </div>
   </section>
+
+  <div class="disclaimer">
+    <span class="icon">⚠️</span>
+    <p><strong>Descargo de responsabilidad:</strong> el monto comisionable que muestra esta calculadora es
+    <strong>aproximado</strong> y solo tiene fines referenciales. Únicamente se consideran válidas las ventas que
+    estén <strong>correctamente subidas al link</strong> correspondiente y que además <strong>figuren en INAR</strong>.
+    El cálculo final y oficial de comisiones corresponde al área encargada.</p>
+  </div>
 
   <section class="table-card">
     <div class="heading">
@@ -481,7 +511,8 @@
 
     var tdMix = document.createElement("td");
     tdMix.className = "mix-cell";
-    tdMix.textContent = (p.mix*100).toFixed(0) + "%";
+    tdMix.innerHTML = '<div class="mix-wrap"><input type="number" min="0" max="100" step="0.1" value="' +
+      (p.mix*100) + '" class="mix-input"><span class="pct-sign">%</span></div>';
     tr.appendChild(tdMix);
 
     var tdComision = document.createElement("td");
@@ -528,13 +559,14 @@
       var tr = tbody.querySelector('tr[data-id="' + p.id + '"]');
       var cuota = parseFloat(tr.querySelector(".cuota-input").value) || 0;
       var venta = parseFloat(tr.querySelector(".venta-input").value) || 0;
+      var mix = (parseFloat(tr.querySelector(".mix-input").value) || 0) / 100;
 
       var cumplimiento = cuota > 0 ? (venta / cuota) : 0;
       var cumplimientoEfectivo = p.tope ? Math.min(cumplimiento, 1) : cumplimiento;
 
       var comisionProducto = 0;
       if(cumplimiento >= MIN_CUMPLIMIENTO){
-        comisionProducto = p.mix * comisionMonto * cumplimientoEfectivo;
+        comisionProducto = mix * comisionMonto * cumplimientoEfectivo;
       }
       totalComisionProductos += comisionProducto;
 
@@ -609,7 +641,8 @@
         var tr = tbody.querySelector('tr[data-id="' + p.id + '"]');
         state.products[p.id] = {
           cuota: tr.querySelector(".cuota-input").value,
-          venta: tr.querySelector(".venta-input").value
+          venta: tr.querySelector(".venta-input").value,
+          mix: tr.querySelector(".mix-input").value
         };
       });
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
@@ -633,14 +666,19 @@
           var tr = tbody.querySelector('tr[data-id="' + p.id + '"]');
           if(saved.cuota != null) tr.querySelector(".cuota-input").value = saved.cuota;
           if(saved.venta != null) tr.querySelector(".venta-input").value = saved.venta;
+          if(saved.mix != null) tr.querySelector(".mix-input").value = saved.mix;
         });
       }
     }catch(e){ /* ignorar datos corruptos */ }
   }
 
   document.getElementById("resetBtn").addEventListener("click", function(){
-    if(!confirm("¿Reiniciar todos los campos de cuota, venta y bonos?")) return;
+    if(!confirm("¿Reiniciar todos los campos de cuota, venta, mix y bonos?")) return;
     tbody.querySelectorAll(".cuota-input, .venta-input").forEach(function(i){ i.value = 0; });
+    PRODUCTS.forEach(function(p){
+      var tr = tbody.querySelector('tr[data-id="' + p.id + '"]');
+      tr.querySelector(".mix-input").value = (p.mix*100);
+    });
     npsInput.value = 0;
     misinCuotaInput.value = 0;
     misinVentaInput.value = 0;
