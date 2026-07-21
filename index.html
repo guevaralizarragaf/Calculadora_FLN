@@ -169,11 +169,11 @@
     border-bottom:1px solid rgba(255,255,255,0.14);
     margin-bottom:18px;
   }
-  .sidebar-toggle{
-    background:rgba(255,255,255,0.1);
-    border:none;
+  .topbar-toggle{
+    background:rgba(255,255,255,0.14);
+    border:1px solid rgba(255,255,255,0.24);
     color:#fff;
-    width:34px; height:34px;
+    width:38px; height:38px;
     border-radius:8px;
     font-size:16px;
     cursor:pointer;
@@ -181,12 +181,14 @@
     display:flex; align-items:center; justify-content:center;
     transition:background .15s ease;
   }
-  .sidebar-toggle:hover{background:rgba(255,255,255,0.2);}
-  .sidebar-brand .brand-text{min-width:0;}
+  .topbar-toggle:hover{background:rgba(255,255,255,0.26);}
+  .sidebar-brand .brand-text{min-width:0; display:flex; flex-direction:column; justify-content:center; height:40px;}
   .sidebar-brand .brand-sub{font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.6); white-space:nowrap;}
-  .sidebar-brand .brand-title{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:14.5px; line-height:1.25; margin-top:2px; white-space:nowrap;}
+  .sidebar-brand .brand-title{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:13px; line-height:1.35; white-space:nowrap;}
+  .sidebar-brand .brand-title span{display:block;}
   .sidebar-brand .logo-mark{width:40px; height:40px; flex:0 0 auto;}
   .sidebar-nav{display:flex; flex-direction:column; gap:6px; flex:1;}
+  .sidebar-nav.pending .nav-item{ visibility:hidden; }
   .nav-item{
     display:flex; align-items:center; gap:10px;
     background:none; border:none; text-align:left;
@@ -212,13 +214,23 @@
     font-size:11.5px; color:rgba(255,255,255,0.75);
   }
   .sidebar-footer .user-pill span{word-break:break-all;}
+  .sidebar-footer .user-name{
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:13.5px;
+    color:#fff; line-height:1.3; word-break:break-word;
+  }
+  .sidebar-footer .user-role{
+    font-size:11px; color:rgba(255,255,255,0.65);
+    text-transform:uppercase; letter-spacing:0.05em;
+  }
 
   /* ---------- sidebar colapsado (modo solo iconos) ---------- */
   .sidebar.collapsed{ width:76px; }
   .sidebar.collapsed .sidebar-brand{ justify-content:center; }
   .sidebar.collapsed .brand-text,
   .sidebar.collapsed .nav-label,
-  .sidebar.collapsed .user-pill > span{ display:none; }
+  .sidebar.collapsed .user-pill > span,
+  .sidebar.collapsed .user-name,
+  .sidebar.collapsed .user-role{ display:none; }
   .sidebar.collapsed .sidebar-brand .logo-mark{ margin:0 auto; }
   .sidebar.collapsed .nav-item{ justify-content:center; padding:11px 0; }
   .sidebar.collapsed .nav-item .nav-icon{ width:auto; }
@@ -257,23 +269,20 @@
   }
 
   @media (max-width:900px){
-    .app-shell{ flex-direction:column; }
-    .sidebar{
-      width:100%; height:auto; position:relative;
-      flex-direction:row; align-items:center; padding:14px 16px; gap:16px;
-    }
-    .sidebar-brand{ border-bottom:none; margin-bottom:0; padding:0; flex:0 0 auto; }
-    .sidebar-nav{ flex-direction:row; flex:1; overflow-x:auto; }
-    .nav-item{ white-space:nowrap; width:auto; }
-    .sidebar-footer{ border-top:none; padding-top:0; flex:0 0 auto; }
-    .sidebar-footer .user-pill{ flex-direction:row; align-items:center; }
+    .sidebar{ width:210px; padding:18px 12px; }
+    .sidebar.collapsed{ width:66px; }
+    .nav-item{ font-size:12.5px; padding:10px 10px; }
+    .topbar{ padding:16px clamp(12px,4vw,24px); gap:12px; }
+  }
+  @media (max-width:560px){
+    .sidebar{ width:180px; }
   }
 
   /* ---------- topbar ---------- */
   .topbar{
     background:linear-gradient(120deg,var(--blue-deep),var(--blue) 60%, var(--blue-glow));
     padding:22px clamp(16px,4vw,48px);
-    display:flex; align-items:center; gap:18px;
+    display:flex; align-items:center; gap:16px;
     box-shadow:var(--shadow);
     position:sticky; top:0; z-index:20;
   }
@@ -609,6 +618,59 @@ var SUPABASE_ANON_KEY = "sb_publishable_ieKMBlB07Pz0ii7s1XFe8w_HOvQYAty";
     document.getElementById("appContent").style.display = "block";
     var label = document.getElementById("userEmailLabel");
     if(label) label.textContent = email;
+    loadProfile(email);
+  }
+
+  async function loadProfile(email){
+    var nameLabel = document.getElementById("userNameLabel");
+    var roleLabel = document.getElementById("userRoleLabel");
+    try{
+      var res = await supabaseClient
+        .from("profiles")
+        .select("full_name, cargo, vistas")
+        .eq("email", email)
+        .maybeSingle();
+      if(res.data && res.data.full_name){
+        if(nameLabel) nameLabel.textContent = res.data.full_name;
+        if(roleLabel) roleLabel.textContent = res.data.cargo || "";
+      }else{
+        // aún no está en la tabla profiles: solo se muestra el correo
+        if(nameLabel) nameLabel.textContent = "";
+        if(roleLabel) roleLabel.textContent = "";
+      }
+      var vistasRaw = (res.data && res.data.vistas) ? res.data.vistas : "calculadora";
+      var allowed = vistasRaw.split(",").map(function(v){ return v.trim(); }).filter(Boolean);
+      applyViewPermissions(allowed);
+    }catch(e){
+      if(nameLabel) nameLabel.textContent = "";
+      if(roleLabel) roleLabel.textContent = "";
+      // si algo falla, por seguridad solo se deja ver la calculadora
+      applyViewPermissions(["calculadora"]);
+    }
+  }
+
+  function applyViewPermissions(allowed){
+    var navItems = document.querySelectorAll(".nav-item");
+    var firstAllowedItem = null;
+    navItems.forEach(function(item){
+      var page = item.getAttribute("data-page");
+      var isAllowed = allowed.indexOf(page) !== -1;
+      item.style.display = isAllowed ? "" : "none";
+      if(isAllowed && !firstAllowedItem) firstAllowedItem = item;
+    });
+
+    var activeItem = document.querySelector(".nav-item.active");
+    var activeAllowed = activeItem && allowed.indexOf(activeItem.getAttribute("data-page")) !== -1;
+    if(!activeAllowed && firstAllowedItem){
+      navItems.forEach(function(i){ i.classList.remove("active"); });
+      firstAllowedItem.classList.add("active");
+      document.querySelectorAll(".page").forEach(function(p){ p.classList.remove("active"); });
+      var targetPage = document.getElementById("page-" + firstAllowedItem.getAttribute("data-page"));
+      if(targetPage) targetPage.classList.add("active");
+    }
+
+    var sidebarNav = document.getElementById("sidebarNav");
+    if(sidebarNav) sidebarNav.classList.remove("pending");
   }
 
   function showLoginError(message){
@@ -680,14 +742,16 @@ var SUPABASE_ANON_KEY = "sb_publishable_ieKMBlB07Pz0ii7s1XFe8w_HOvQYAty";
 
     var SIDEBAR_KEY = "fortalecernos_sidebar_collapsed";
     var sidebar = document.getElementById("sidebar");
-    var sidebarToggle = document.getElementById("sidebarToggle");
-    if(sidebar && sidebarToggle){
+    var sidebarToggles = document.querySelectorAll(".topbar-toggle");
+    if(sidebar && sidebarToggles.length){
       try{
         if(localStorage.getItem(SIDEBAR_KEY) === "1"){ sidebar.classList.add("collapsed"); }
       }catch(e){}
-      sidebarToggle.addEventListener("click", function(){
-        sidebar.classList.toggle("collapsed");
-        try{ localStorage.setItem(SIDEBAR_KEY, sidebar.classList.contains("collapsed") ? "1" : "0"); }catch(e){}
+      sidebarToggles.forEach(function(btn){
+        btn.addEventListener("click", function(){
+          sidebar.classList.toggle("collapsed");
+          try{ localStorage.setItem(SIDEBAR_KEY, sidebar.classList.contains("collapsed") ? "1" : "0"); }catch(e){}
+        });
       });
     }
   });
@@ -700,15 +764,14 @@ var SUPABASE_ANON_KEY = "sb_publishable_ieKMBlB07Pz0ii7s1XFe8w_HOvQYAty";
 
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
-      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Mostrar u ocultar menú" title="Mostrar u ocultar menú">☰</button>
       <div class="logo-mark">
         <img src="https://github.com/guevaralizarragaf/Calculadora_FLN/blob/main/assets/logo%20solo.png?raw=true" alt="Logo Fortalecernos SAC">
       </div>
       <div class="brand-text">
-        <div class="brand-title">GESTIÓN FORTALECERNOS SAC</div>
+        <div class="brand-title"><span>GESTIÓN</span><span>FORTALECERNOS SAC</span></div>
       </div>
     </div>
-    <nav class="sidebar-nav">
+    <nav class="sidebar-nav pending" id="sidebarNav">
       <button class="nav-item" data-page="powerbi">
         <span class="nav-icon">📊</span> <span class="nav-label">POWER BI</span>
       </button>
@@ -718,8 +781,10 @@ var SUPABASE_ANON_KEY = "sb_publishable_ieKMBlB07Pz0ii7s1XFe8w_HOvQYAty";
     </nav>
     <div class="sidebar-footer">
       <div class="user-pill">
+        <div class="user-name" id="userNameLabel"></div>
+        <div class="user-role" id="userRoleLabel"></div>
         <span id="userEmailLabel"></span>
-        <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
+        <button class="logout-btn" id="logoutBtn">Salir</button>
       </div>
     </div>
   </aside>
@@ -729,6 +794,7 @@ var SUPABASE_ANON_KEY = "sb_publishable_ieKMBlB07Pz0ii7s1XFe8w_HOvQYAty";
     <section class="page active" id="page-calculadora">
 
       <div class="topbar">
+        <button class="topbar-toggle" aria-label="Mostrar u ocultar menú" title="Mostrar u ocultar menú">☰</button>
         <div style="flex:1;">
           <h1>Calculadora de comisiones</h1>
         </div>
@@ -839,6 +905,7 @@ var SUPABASE_ANON_KEY = "sb_publishable_ieKMBlB07Pz0ii7s1XFe8w_HOvQYAty";
     <section class="page" id="page-powerbi">
 
       <div class="topbar">
+        <button class="topbar-toggle" aria-label="Mostrar u ocultar menú" title="Mostrar u ocultar menú">☰</button>
         <div style="flex:1;">
           <h1>Power BI</h1>
         </div>
