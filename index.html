@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script async src="https://tally.so/widgets/embed.js"></script>
 <style>
   :root{
     --blue-deep:#0d1a9e;
@@ -266,6 +267,23 @@
   }
   .powerbi-frame-box iframe{
     position:absolute; top:0; left:0; width:100%; height:100%; border:0;
+  }
+
+  .form-wrap{
+    max-width:1280px; margin:26px auto 0; padding:0 clamp(16px,4vw,48px) 40px;
+  }
+  .form-frame-box{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    border:1px solid var(--line);
+    padding:14px;
+    overflow:hidden;
+    height:calc(100vh - 150px);
+    min-height:520px;
+  }
+  .form-frame-box iframe{
+    width:100%; height:100%; border:0; border-radius:10px;
   }
 
   @media (max-width:900px){
@@ -801,6 +819,9 @@ var SUPABASE_ANON_KEY = "sb_publishable_ieKMBlB07Pz0ii7s1XFe8w_HOvQYAty";
       <button class="nav-item active" data-page="calculadora">
         <span class="nav-icon">🧮</span> <span class="nav-label">Calculadora de comisiones</span>
       </button>
+      <button class="nav-item" data-page="formulario">
+        <span class="nav-icon">📝</span> <span class="nav-label">Formulario de Ventas</span>
+      </button>
     </nav>
     <div class="sidebar-footer">
       <div class="user-pill">
@@ -922,6 +943,26 @@ var SUPABASE_ANON_KEY = "sb_publishable_ieKMBlB07Pz0ii7s1XFe8w_HOvQYAty";
         adicional (OSS, OPP, VR BASE) se pagan por cada unidad vendida por encima de la cuota. Los datos se guardan
         automáticamente en este navegador.
       </footer>
+
+    </section>
+
+    <section class="page" id="page-formulario">
+
+      <div class="topbar">
+        <button class="topbar-toggle" aria-label="Mostrar u ocultar menú" title="Mostrar u ocultar menú">☰</button>
+        <div style="flex:1;">
+          <h1>Formulario de Ventas</h1>
+        </div>
+      </div>
+
+      <div class="form-wrap">
+        <div class="form-frame-box">
+          <iframe data-tally-src="https://tally.so/r/worNlM"
+                  width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0"
+                  title="Registro de Ventas FLN">
+          </iframe>
+        </div>
+      </div>
 
     </section>
 
