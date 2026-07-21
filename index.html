@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculadora de Comisiones · Fortalecernos SAC</title>
+<title>Gestión Fortalecernos · Fortalecernos SAC</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -141,6 +141,103 @@
   .user-pill{
     display:flex; align-items:center; gap:8px;
     font-size:11.5px; color:rgba(255,255,255,0.75);
+  }
+
+  /* ---------- app shell con menú lateral ---------- */
+  .app-shell{
+    display:flex;
+    min-height:100vh;
+    align-items:stretch;
+  }
+  .sidebar{
+    width:250px;
+    flex:0 0 auto;
+    background:linear-gradient(180deg,var(--blue-deep),var(--blue) 70%, var(--blue-glow));
+    color:#fff;
+    display:flex;
+    flex-direction:column;
+    padding:22px 16px;
+    position:sticky;
+    top:0;
+    height:100vh;
+  }
+  .sidebar-brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:4px 6px 22px;
+    border-bottom:1px solid rgba(255,255,255,0.14);
+    margin-bottom:18px;
+  }
+  .sidebar-brand .logo-mark{width:40px; height:40px; flex:0 0 auto;}
+  .sidebar-brand .brand-sub{font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.6);}
+  .sidebar-brand .brand-title{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:14.5px; line-height:1.25; margin-top:2px;}
+  .sidebar-nav{display:flex; flex-direction:column; gap:6px; flex:1;}
+  .nav-item{
+    display:flex; align-items:center; gap:10px;
+    background:none; border:none; text-align:left;
+    color:rgba(255,255,255,0.78);
+    font-family:'Inter',sans-serif; font-weight:600; font-size:13.5px;
+    padding:11px 12px; border-radius:10px;
+    cursor:pointer;
+    transition:background .15s ease, color .15s ease;
+    width:100%;
+  }
+  .nav-item .nav-icon{font-size:16px; width:20px; text-align:center; flex:0 0 auto;}
+  .nav-item:hover{background:rgba(255,255,255,0.08); color:#fff;}
+  .nav-item.active{background:rgba(255,255,255,0.16); color:#fff; box-shadow:inset 3px 0 0 var(--orange);}
+  .sidebar-footer{
+    border-top:1px solid rgba(255,255,255,0.14);
+    padding-top:14px;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .sidebar-footer .user-pill{
+    display:flex; flex-direction:column; gap:8px;
+    font-size:11.5px; color:rgba(255,255,255,0.75);
+  }
+  .sidebar-footer .user-pill span{word-break:break-all;}
+
+  .main-content{
+    flex:1;
+    min-width:0;
+    overflow-x:hidden;
+  }
+  .page{ display:none; }
+  .page.active{ display:block; }
+
+  .powerbi-wrap{
+    max-width:1280px; margin:26px auto 0; padding:0 clamp(16px,4vw,48px) 40px;
+  }
+  .powerbi-frame-box{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    border:1px solid var(--line);
+    padding:14px;
+    overflow:hidden;
+  }
+  .powerbi-frame-box .aspect{
+    position:relative;
+    width:100%;
+    padding-top:62.25%; /* proporción 600 x 373.5 */
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .powerbi-frame-box iframe{
+    position:absolute; top:0; left:0; width:100%; height:100%; border:0;
+  }
+
+  @media (max-width:900px){
+    .app-shell{ flex-direction:column; }
+    .sidebar{
+      width:100%; height:auto; position:relative;
+      flex-direction:row; align-items:center; padding:14px 16px; gap:16px;
+    }
+    .sidebar-brand{ border-bottom:none; margin-bottom:0; padding:0; flex:0 0 auto; }
+    .sidebar-nav{ flex-direction:row; flex:1; overflow-x:auto; }
+    .nav-item{ white-space:nowrap; width:auto; }
+    .sidebar-footer{ border-top:none; padding-top:0; flex:0 0 auto; }
+    .sidebar-footer .user-pill{ flex-direction:row; align-items:center; }
   }
 
   /* ---------- topbar ---------- */
@@ -442,7 +539,7 @@
       <img src="https://github.com/guevaralizarragaf/Calculadora_FLN/blob/main/assets/logo%20solo.png?raw=true" alt="Logo Fortalecernos SAC">
     </div>
     <div class="sub">Fortalecernos SAC</div>
-    <h2>Calculadora de comisiones</h2>
+    <h2>Gestión Fortalecernos</h2>
 
     <form id="loginForm" class="login-form">
       <div class="f">
@@ -540,28 +637,64 @@ var SUPABASE_ANON_KEY = "sb_publishable_ieKMBlB07Pz0ii7s1XFe8w_HOvQYAty";
         window.location.reload();
       });
     }
+
+    var navItems = document.querySelectorAll(".nav-item");
+    navItems.forEach(function(item){
+      item.addEventListener("click", function(){
+        var target = item.getAttribute("data-page");
+        navItems.forEach(function(i){ i.classList.remove("active"); });
+        item.classList.add("active");
+        document.querySelectorAll(".page").forEach(function(p){ p.classList.remove("active"); });
+        var targetPage = document.getElementById("page-" + target);
+        if(targetPage) targetPage.classList.add("active");
+      });
+    });
   });
 })();
 </script>
 
 <!-- ---------- Contenido de la app (oculto hasta iniciar sesión) ---------- -->
 <div id="appContent" style="display:none;">
+<div class="app-shell">
 
-<div class="topbar">
-  <div class="logo-mark">
-    <img src="https://github.com/guevaralizarragaf/Calculadora_FLN/blob/main/assets/logo%20solo.png?raw=true" alt="Logo Fortalecernos SAC">
-  </div>
-  <div style="flex:1;">
-    <div class="sub">Fortalecernos SAC</div>
-    <h1>Calculadora de comisiones</h1>
-  </div>
-  <div class="user-pill">
-    <span id="userEmailLabel"></span>
-    <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
-  </div>
-</div>
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="logo-mark">
+        <img src="https://github.com/guevaralizarragaf/Calculadora_FLN/blob/main/assets/logo%20solo.png?raw=true" alt="Logo Fortalecernos SAC">
+      </div>
+      <div>
+        <div class="brand-sub">Fortalecernos SAC</div>
+        <div class="brand-title">GESTIÓN FORTALECERNOS</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-page="calculadora">
+        <span class="nav-icon">🧮</span> Calculadora de comisiones
+      </button>
+      <button class="nav-item" data-page="powerbi">
+        <span class="nav-icon">📊</span> POWER BI
+      </button>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-pill">
+        <span id="userEmailLabel"></span>
+        <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
+      </div>
+    </div>
+  </aside>
 
-<div class="wrap">
+  <main class="main-content">
+
+    <section class="page active" id="page-calculadora">
+
+      <div class="topbar">
+        <div style="flex:1;">
+          <div class="sub">Fortalecernos SAC</div>
+          <h1>Calculadora de comisiones</h1>
+        </div>
+      </div>
+
+      <div class="wrap">
 
   <section class="panel">
     <div class="field-card">
@@ -652,15 +785,43 @@ var SUPABASE_ANON_KEY = "sb_publishable_ieKMBlB07Pz0ii7s1XFe8w_HOvQYAty";
     <button class="reset-btn" id="resetBtn">Reiniciar datos</button>
   </section>
 
-</div>
+      </div>
 
-<footer class="note">
-  Cumplimiento = Venta ÷ Cuota. La comisión de cada producto solo se paga si el cumplimiento es 70% o más, y equivale a
-  Mix × Comisión variable × Cumplimiento (en VR CAPTURA el cumplimiento tiene tope de 100%). Los bonos por unidad
-  adicional (OSS, OPP, VR BASE) se pagan por cada unidad vendida por encima de la cuota. Los datos se guardan
-  automáticamente en este navegador.
-</footer>
+      <footer class="note">
+        Cumplimiento = Venta ÷ Cuota. La comisión de cada producto solo se paga si el cumplimiento es 70% o más, y equivale a
+        Mix × Comisión variable × Cumplimiento (en VR CAPTURA el cumplimiento tiene tope de 100%). Los bonos por unidad
+        adicional (OSS, OPP, VR BASE) se pagan por cada unidad vendida por encima de la cuota. Los datos se guardan
+        automáticamente en este navegador.
+      </footer>
 
+    </section>
+
+    <section class="page" id="page-powerbi">
+
+      <div class="topbar">
+        <div style="flex:1;">
+          <div class="sub">Fortalecernos SAC</div>
+          <h1>Power BI</h1>
+        </div>
+      </div>
+
+      <div class="powerbi-wrap">
+        <div class="powerbi-frame-box">
+          <div class="aspect">
+            <iframe title="FLN"
+                    src="https://app.powerbi.com/view?r=eyJrIjoiOGI2YmMzMjgtZGY5ZS00MDNmLWE5YzYtNWRhNzAxZmU3ZTI5IiwidCI6IjY3MzY3MGUwLTYwZDQtNDFmZC04NTQ5LTI1OWU2Nzk2YzM5MSIsImMiOjR9"
+                    frameborder="0"
+                    allowFullScreen="true">
+            </iframe>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+</div><!-- /.app-shell -->
 </div><!-- /#appContent -->
 
 <script>
