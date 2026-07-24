@@ -453,9 +453,9 @@
   .table-card .heading .hint{font-size:12.5px; color:var(--ink-soft);}
 
   .table-scroll{overflow-x:auto; padding:8px 0 18px;}
-  table{border-collapse:separate; border-spacing:0 10px; width:100%; min-width:980px; padding:0 14px;}
+  .table-scroll table{border-collapse:separate; border-spacing:0 10px; width:100%; min-width:980px; padding:0 14px;}
 
-  thead th{
+  .table-scroll thead th{
     font-family:'Space Grotesk',sans-serif;
     font-size:12px;
     letter-spacing:0.06em;
@@ -465,28 +465,28 @@
     padding:12px 14px;
     white-space:nowrap;
   }
-  thead th:first-child{ border-radius:12px 0 0 12px; }
-  thead th:last-child{ border-radius:0 12px 12px 0; }
-  thead tr th:nth-child(1){background:var(--mint); color:var(--purple);}
-  thead tr th:nth-child(2){background:var(--teal);}
-  thead tr th:nth-child(3){background:var(--teal);}
-  thead tr th:nth-child(4){background:var(--teal);}
-  thead tr th:nth-child(5){background:var(--teal);}
-  thead tr th:nth-child(6){background:var(--teal);}
-  thead tr th:nth-child(7){background:var(--teal);}
-  thead tr th:nth-child(8){background:var(--teal);}
-  thead tr th:nth-child(9){background:var(--teal);}
+  .table-scroll thead th:first-child{ border-radius:12px 0 0 12px; }
+  .table-scroll thead th:last-child{ border-radius:0 12px 12px 0; }
+  .table-scroll thead tr th:nth-child(1){background:var(--mint); color:var(--purple);}
+  .table-scroll thead tr th:nth-child(2){background:var(--teal);}
+  .table-scroll thead tr th:nth-child(3){background:var(--teal);}
+  .table-scroll thead tr th:nth-child(4){background:var(--teal);}
+  .table-scroll thead tr th:nth-child(5){background:var(--teal);}
+  .table-scroll thead tr th:nth-child(6){background:var(--teal);}
+  .table-scroll thead tr th:nth-child(7){background:var(--teal);}
+  .table-scroll thead tr th:nth-child(8){background:var(--teal);}
+  .table-scroll thead tr th:nth-child(9){background:var(--teal);}
 
-  tbody td{
+  .table-scroll tbody td{
     background:var(--lilac);
     padding:12px 14px;
     font-size:13.5px;
     vertical-align:middle;
   }
-  tbody td:first-child{border-radius:12px 0 0 12px; background:var(--purple); color:#fff;}
-  tbody td:last-child{border-radius:0 12px 12px 0;}
-  tbody tr td:first-child .pname{font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px;}
-  tbody tr td:first-child .pcond-tag{
+  .table-scroll tbody td:first-child{border-radius:12px 0 0 12px; background:var(--purple); color:#fff;}
+  .table-scroll tbody td:last-child{border-radius:0 12px 12px 0;}
+  .table-scroll tbody tr td:first-child .pname{font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px;}
+  .table-scroll tbody tr td:first-child .pcond-tag{
     display:inline-block; margin-top:4px; font-size:10.5px; padding:2px 8px;
     background:rgba(255,255,255,0.14); border-radius:999px; color:#fff; opacity:0.85;
   }
@@ -561,6 +561,17 @@
   }
   .avance-pct-input:focus{ outline:none; border-color:var(--blue); box-shadow:0 0 0 3px rgba(20,40,214,0.12); }
 
+  /* ---------- control xstore ---------- */
+  #xstoreTable td:first-child, #xstoreTable th:first-child{ white-space:nowrap; }
+  .xstore-pdv-col.is-hidden{ display:none; }
+  .payjoy-tag{
+    display:inline-block; margin-left:8px; padding:2px 9px; border-radius:999px;
+    background:var(--good); color:#fff; font-size:10.5px; font-weight:700;
+    text-transform:uppercase; letter-spacing:0.04em; vertical-align:middle;
+  }
+  .xstore-money{font-family:'IBM Plex Mono',monospace; font-weight:600; color:var(--purple-2);}
+  #xstoreTable tbody tr[data-newdate="1"] td{ padding-top:20px; }
+
   /* ---------- bonus section ---------- */
   .bonus-grid{
     display:grid;
@@ -622,6 +633,126 @@
 
   @media (prefers-reduced-motion: reduce){
     .bar-fill, .reset-btn{transition:none;}
+  }
+
+  /* ================= Comprobante de pago (nota de venta) ================= */
+  .cxp-app{
+    display:grid; grid-template-columns:1fr; gap:22px; align-items:start;
+  }
+  @media(min-width:980px){
+    .cxp-app{ grid-template-columns:400px 1fr; }
+  }
+  .cxp-fieldset{
+    border:1px solid var(--line); border-radius:var(--radius);
+    background:var(--card); box-shadow:var(--shadow);
+    padding:16px 16px 18px; margin:0 0 16px;
+  }
+  .cxp-legend{
+    font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:700;
+    color:var(--purple-2); text-transform:uppercase; letter-spacing:.08em;
+    margin:0 0 10px;
+  }
+  .cxp-label{ display:block; font-size:11.5px; color:var(--ink-soft); margin:10px 0 4px; font-weight:600; }
+  .cxp-label:first-of-type{ margin-top:0; }
+  .cxp-input{
+    width:100%; background:#fff; border:1px solid var(--line); color:var(--ink);
+    border-radius:8px; padding:9px 10px; font-size:13.5px; font-family:'Inter',sans-serif;
+  }
+  .cxp-input:focus{ outline:none; border-color:var(--purple-2); box-shadow:0 0 0 3px rgba(85,33,134,0.12); }
+  .cxp-row2{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .cxp-item-card{
+    border:1px solid var(--line); border-radius:10px; padding:10px 10px 12px;
+    margin-bottom:10px; background:var(--lilac);
+  }
+  .cxp-item-card-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+  .cxp-item-card-head span{ font-size:10.5px; color:var(--purple-2); font-weight:700; text-transform:uppercase; letter-spacing:.06em; }
+  .cxp-item-card .cxp-input{ margin-bottom:6px; background:#fff; }
+  .cxp-imei-row, .cxp-qty-price-row{ display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+  .cxp-mini-label{ font-size:10px; color:var(--ink-soft); margin:0 0 3px; display:block; }
+  .cxp-del-btn{
+    background:transparent; border:1px solid var(--line); color:var(--ink-soft);
+    border-radius:6px; height:32px; width:32px; cursor:pointer; font-size:16px; line-height:1;
+  }
+  .cxp-del-btn:hover{ border-color:var(--bad); color:var(--bad); }
+  .cxp-add-item{
+    margin-top:6px; background:transparent; border:1.5px dashed var(--teal);
+    color:#0b8073; border-radius:8px; padding:9px 10px; font-size:13px;
+    cursor:pointer; width:100%; font-weight:600;
+  }
+  .cxp-add-item:hover{ background:rgba(14,168,147,0.08); }
+  .cxp-banks{ display:flex; flex-direction:column; gap:8px; }
+  .cxp-bank-row{ display:grid; grid-template-columns:1fr 1fr 1fr 34px; gap:6px; }
+  .cxp-actions{
+    display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;
+  }
+  .cxp-btn{
+    flex:1; min-width:140px; border:none; border-radius:9px; padding:12px 14px;
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:13.5px;
+    cursor:pointer; transition:background .15s ease;
+  }
+  .cxp-btn:active{ transform:translateY(1px); }
+  .cxp-btn-primary{ background:var(--orange); color:#fff; }
+  .cxp-btn-primary:hover{ background:var(--orange-dark); }
+  .cxp-btn-secondary{ background:#fff; color:var(--ink); border:1px solid var(--line); }
+  .cxp-btn-secondary:hover{ background:var(--bg); }
+  .cxp-btn-whatsapp{
+    display:block; text-align:center; text-decoration:none;
+    background:#25D366; color:#08341C; border-radius:9px; padding:12px 14px;
+    margin-top:10px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:13.5px;
+  }
+  .cxp-btn-whatsapp.is-disabled{ opacity:.45; pointer-events:none; }
+  .cxp-hint{ font-size:11.5px; color:var(--ink-soft); margin-top:10px; line-height:1.5; }
+
+  .cxp-preview-pane{
+    display:flex; justify-content:center;
+    background:radial-gradient(circle at 50% 0%, #eef1fb 0%, transparent 60%);
+    border-radius:var(--radius); padding:20px 10px 30px;
+  }
+  .cxp-receipt{
+    width:100%; max-width:420px; background:#FBFAF6; color:var(--ink);
+    font-family:'IBM Plex Mono',monospace;
+    padding:26px 22px 0; position:relative;
+    border:1px solid var(--paper-line, #e3ddd0);
+    box-shadow:var(--shadow);
+  }
+  .cxp-receipt-header{ text-align:center; margin-bottom:14px; }
+  .cxp-rlogo{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:19px; letter-spacing:.02em; color:var(--purple-2); }
+  .cxp-rtag{ font-size:10.5px; color:var(--ink-soft); letter-spacing:.06em; text-transform:uppercase; margin-top:2px; }
+  .cxp-doc-type{
+    text-align:center; border:1.5px solid var(--ink); border-radius:5px;
+    padding:6px 8px; margin:14px 0; font-size:12px; font-weight:700;
+    letter-spacing:.06em; text-transform:uppercase;
+  }
+  .cxp-doc-type .cxp-num{ display:block; font-size:14px; margin-top:2px; color:var(--ink); }
+  .cxp-dashed{ border:none; border-top:1.5px dashed #d8d3c6; margin:14px 0; }
+  .cxp-kv{ display:flex; justify-content:space-between; gap:10px; font-size:12px; margin:3px 0; }
+  .cxp-kv span:first-child{ color:var(--ink-soft); }
+  .cxp-kv span:last-child{ text-align:right; font-weight:600; }
+  .cxp-section-label{ font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft); margin:14px 0 6px; }
+  .cxp-items-table{ width:100%; border-collapse:collapse; font-size:11.5px; margin-top:4px; }
+  .cxp-items-table th{ text-align:left; font-size:9.5px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft); font-weight:700; padding-bottom:4px; border-bottom:1px solid #d8d3c6; }
+  .cxp-items-table td{ padding:6px 0; border-bottom:1px dotted #d8d3c6; vertical-align:top; }
+  .cxp-items-table td.cxp-num, .cxp-items-table th.cxp-num{ text-align:right; white-space:nowrap; }
+  .cxp-item-desc{ font-weight:700; }
+  .cxp-item-sub{ color:var(--ink-soft); font-size:10.5px; }
+  .cxp-totals{ margin-top:10px; }
+  .cxp-totals .cxp-kv.cxp-grand{ font-size:15px; font-weight:700; border-top:1.5px solid var(--ink); padding-top:8px; margin-top:6px; }
+  .cxp-banklist{ font-size:11px; }
+  .cxp-bankline{ display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px dotted #d8d3c6; }
+  .cxp-disclaimer{ font-size:9.5px; color:var(--ink-soft); line-height:1.5; margin:16px 0 10px; font-family:'Inter',sans-serif; }
+  .cxp-tear{
+    height:14px; margin:0 -22px;
+    background:
+      linear-gradient(-45deg, #fff 8px, transparent 0),
+      linear-gradient(45deg, #fff 8px, transparent 0);
+    background-position:left top; background-repeat:repeat-x; background-size:16px 16px;
+  }
+
+  @media print{
+    body *{ visibility:hidden; }
+    .cxp-receipt, .cxp-receipt *{ visibility:visible; }
+    .cxp-receipt{ position:absolute; top:0; left:0; box-shadow:none; max-width:100%; width:100%; }
+    .cxp-tear{ display:none; }
   }
 </style>
 </head>
@@ -805,6 +936,7 @@ var SUPABASE_ANON_KEY = "sb_publishable_ieKMBlB07Pz0ii7s1XFe8w_HOvQYAty";
         if(targetPage) targetPage.classList.add("active");
         if(target === "stock" && typeof loadStock === "function") loadStock();
         if(target === "avance" && typeof loadAvance === "function") loadAvance();
+        if(target === "xstore" && typeof loadXstore === "function") loadXstore();
       });
     });
 
@@ -854,6 +986,12 @@ var SUPABASE_ANON_KEY = "sb_publishable_ieKMBlB07Pz0ii7s1XFe8w_HOvQYAty";
       </button>
       <button class="nav-item" data-page="avance">
         <span class="nav-icon">📈</span> <span class="nav-label">Avance Link</span>
+      </button>
+      <button class="nav-item" data-page="xstore">
+        <span class="nav-icon">🍱</span> <span class="nav-label">Control Xstore</span>
+      </button>
+      <button class="nav-item" data-page="comprobante">
+        <span class="nav-icon">🧾</span> <span class="nav-label">Comprobante de Pago</span>
       </button>
     </nav>
     <div class="sidebar-footer">
@@ -1022,6 +1160,221 @@ var SUPABASE_ANON_KEY = "sb_publishable_ieKMBlB07Pz0ii7s1XFe8w_HOvQYAty";
 
     </section>
 
+    <section class="page" id="page-xstore">
+
+      <div class="topbar">
+        <button class="topbar-toggle" aria-label="Mostrar u ocultar menú" title="Mostrar u ocultar menú">☰</button>
+        <div style="flex:1;">
+          <h1>Control Xstore</h1>
+        </div>
+        <button class="reset-btn" id="xstoreCrearBtn" style="background:var(--orange); border-color:var(--orange); display:none;">Crear Registro</button>
+        <select id="xstoreDaySelect" class="stock-filter-select" style="min-width:130px; display:none;">
+          <option value="">Día · Todos</option>
+        </select>
+        <select id="xstoreMonthSelect" class="stock-filter-select" style="min-width:160px;">
+          <option value="">Mes…</option>
+        </select>
+      </div>
+
+      <div class="wrap" style="margin-top:26px;">
+
+        <section class="table-card">
+          <div class="heading" style="justify-content:space-between; align-items:center; width:100%;">
+            <div>
+              <h2 id="xstoreTitle">Registro y depósito diario</h2>
+              <span class="hint" id="xstoreHint">Cargando datos…</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px; margin-left:auto; flex-wrap:wrap;">
+              <button class="reset-btn" id="xstoreRefreshBtn" style="background:var(--blue); border-color:var(--blue);">Actualizar</button>
+            </div>
+          </div>
+          <div class="table-scroll">
+            <table id="xstoreTable">
+              <thead>
+                <tr id="xstoreTheadRow">
+                  <th>Fecha</th>
+                  <th class="xstore-pdv-col">PDV</th>
+                  <th>Monto Xstore</th>
+                  <th>Estado registro</th>
+                  <th>Depósito</th>
+                  <th>Estado depósito</th>
+                </tr>
+              </thead>
+              <tbody id="xstoreTbody"></tbody>
+            </table>
+          </div>
+        </section>
+
+      </div>
+
+    </section>
+
+    <section class="page" id="page-xstore-crear">
+
+      <div class="topbar">
+        <button class="topbar-toggle" aria-label="Mostrar u ocultar menú" title="Mostrar u ocultar menú">☰</button>
+        <button class="reset-btn" id="xstoreCrearBackBtn" style="background:var(--blue); border-color:var(--blue);">← Volver</button>
+        <div style="flex:1;">
+          <h1>Crear Registro Xstore</h1>
+        </div>
+      </div>
+
+      <div class="form-wrap">
+        <div class="form-frame-box">
+          <iframe data-tally-src="https://tally.so/r/EkreaB"
+                  width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0"
+                  title="Control Xstore">
+          </iframe>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="page" id="page-comprobante">
+
+      <div class="topbar">
+        <button class="topbar-toggle" aria-label="Mostrar u ocultar menú" title="Mostrar u ocultar menú">☰</button>
+        <div style="flex:1;">
+          <h1>Comprobante de Pago</h1>
+        </div>
+      </div>
+
+      <div class="wrap" style="margin-top:26px;">
+        <p class="hint" style="margin:0 0 16px;">Nota de venta interna para entregar al cliente — no es boleta ni factura electrónica.</p>
+
+        <div class="cxp-app">
+
+          <div class="cxp-form-pane">
+
+            <div class="cxp-fieldset">
+              <div class="cxp-legend">Tu negocio</div>
+              <label class="cxp-label">Nombre / Razón social</label>
+              <input type="text" class="cxp-input" id="cxpBizName" placeholder="Ej. FORTALECERNOS S.A.C.">
+              <div class="cxp-row2">
+                <div><label class="cxp-label">RUC</label><input type="text" class="cxp-input" id="cxpBizRuc" placeholder="20611685689"></div>
+                <div><label class="cxp-label">Teléfono</label><input type="text" class="cxp-input" id="cxpBizPhone" placeholder="970034126"></div>
+              </div>
+              <label class="cxp-label">Dirección</label>
+              <input type="text" class="cxp-input" id="cxpBizAddr" placeholder="Jr. / Av. ...">
+            </div>
+
+            <div class="cxp-fieldset">
+              <div class="cxp-legend">Cliente</div>
+              <label class="cxp-label">Nombre completo</label>
+              <input type="text" class="cxp-input" id="cxpCliName" placeholder="Nombre y apellidos">
+              <div class="cxp-row2">
+                <div><label class="cxp-label">DNI / RUC</label><input type="text" class="cxp-input" id="cxpCliDoc" placeholder="12345678"></div>
+                <div><label class="cxp-label">Teléfono</label><input type="text" class="cxp-input" id="cxpCliPhone" placeholder="9XXXXXXXX"></div>
+              </div>
+              <label class="cxp-label">Dirección (opcional)</label>
+              <input type="text" class="cxp-input" id="cxpCliAddr" placeholder="Dirección del cliente">
+            </div>
+
+            <div class="cxp-fieldset">
+              <div class="cxp-legend">Documento</div>
+              <div class="cxp-row2">
+                <div><label class="cxp-label">N° de nota</label><input type="text" class="cxp-input" id="cxpDocNum" placeholder="00000001"></div>
+                <div><label class="cxp-label">Fecha</label><input type="date" class="cxp-input" id="cxpDocDate"></div>
+              </div>
+              <label class="cxp-label">Modalidad de pago</label>
+              <select class="cxp-input" id="cxpDocModo">
+                <option value="Contado">Contado</option>
+                <option value="Financiado / cuotas">Financiado / cuotas</option>
+              </select>
+            </div>
+
+            <div class="cxp-fieldset">
+              <div class="cxp-legend">Equipos / productos</div>
+              <div id="cxpItemsWrap"></div>
+              <button type="button" class="cxp-add-item" id="cxpAddItem">+ Agregar equipo</button>
+            </div>
+
+            <div class="cxp-fieldset">
+              <div class="cxp-legend">Pago recibido</div>
+              <div class="cxp-row2">
+                <div><label class="cxp-label">Método</label>
+                  <select class="cxp-input" id="cxpPayMethod">
+                    <option>Yape</option><option>Plin</option><option>Transferencia</option>
+                    <option>Efectivo</option><option>Tarjeta</option>
+                  </select>
+                </div>
+                <div><label class="cxp-label">N° de operación</label><input type="text" class="cxp-input" id="cxpPayOp" placeholder="Opcional"></div>
+              </div>
+              <div class="cxp-row2">
+                <div><label class="cxp-label">Monto pagado hoy (S/)</label><input type="number" class="cxp-input" id="cxpPayAmount" placeholder="0.00" step="0.01"></div>
+                <div><label class="cxp-label">Saldo pendiente (S/)</label><input type="number" class="cxp-input" id="cxpPayBalance" placeholder="0.00" step="0.01"></div>
+              </div>
+            </div>
+
+            <div class="cxp-fieldset">
+              <div class="cxp-legend">Cuentas para pago (opcional)</div>
+              <div class="cxp-banks" id="cxpBanksWrap"></div>
+              <button type="button" class="cxp-add-item" id="cxpAddBank">+ Agregar cuenta</button>
+            </div>
+
+            <div class="cxp-actions">
+              <button class="cxp-btn cxp-btn-secondary" id="cxpSaveDefaults">Guardar mis datos</button>
+              <button class="cxp-btn cxp-btn-primary" id="cxpPrintBtn">Imprimir / Guardar PDF</button>
+            </div>
+            <a class="cxp-btn-whatsapp" id="cxpWaBtn" href="#" target="_blank" rel="noopener">Enviar mensaje al cliente por WhatsApp</a>
+            <p class="cxp-hint">"Guardar mis datos" recuerda tu negocio y el próximo número de nota en este navegador. El botón de imprimir abre el diálogo de impresión — ahí eliges "Guardar como PDF" para enviarlo por WhatsApp. Luego usa el botón verde para abrir el chat del cliente con el mensaje ya escrito; solo adjunta el PDF guardado.</p>
+          </div>
+
+          <div class="cxp-preview-pane">
+            <div class="cxp-receipt" id="cxpReceipt">
+              <div class="cxp-receipt-header">
+                <div class="cxp-rlogo" id="cxpPvBizName">TU NEGOCIO</div>
+                <div class="cxp-rtag" id="cxpPvBizSub">RUC · DIRECCIÓN · TELÉFONO</div>
+              </div>
+
+              <div class="cxp-doc-type">
+                NOTA DE VENTA
+                <span class="cxp-num" id="cxpPvDocNum">N° 00000001</span>
+              </div>
+
+              <div class="cxp-kv"><span>Fecha</span><span id="cxpPvDate">—</span></div>
+              <div class="cxp-kv"><span>Modalidad</span><span id="cxpPvModo">Contado</span></div>
+
+              <hr class="cxp-dashed">
+
+              <div class="cxp-section-label">Cliente</div>
+              <div class="cxp-kv"><span>Nombre</span><span id="cxpPvCliName">—</span></div>
+              <div class="cxp-kv"><span>Doc.</span><span id="cxpPvCliDoc">—</span></div>
+              <div class="cxp-kv" id="cxpPvCliPhoneRow"><span>Teléfono</span><span id="cxpPvCliPhone">—</span></div>
+              <div class="cxp-kv" id="cxpPvCliAddrRow" style="display:none"><span>Dirección</span><span id="cxpPvCliAddr">—</span></div>
+
+              <hr class="cxp-dashed">
+
+              <div class="cxp-section-label">Equipos</div>
+              <table class="cxp-items-table">
+                <thead><tr><th>Descripción</th><th class="cxp-num">Cant.</th><th class="cxp-num">Importe</th></tr></thead>
+                <tbody id="cxpPvItems"></tbody>
+              </table>
+
+              <div class="cxp-totals">
+                <div class="cxp-kv cxp-grand"><span>Total</span><span id="cxpPvTotal">S/. 0.00</span></div>
+                <div class="cxp-kv"><span>Pagado (<span id="cxpPvPayMethod">—</span>)</span><span id="cxpPvPaid">S/. 0.00</span></div>
+                <div class="cxp-kv"><span>Saldo pendiente</span><span id="cxpPvBalance">S/. 0.00</span></div>
+                <div class="cxp-kv" id="cxpPvOpRow" style="display:none"><span>N° operación</span><span id="cxpPvOp">—</span></div>
+              </div>
+
+              <div id="cxpPvBanksBlock" style="display:none">
+                <hr class="cxp-dashed">
+                <div class="cxp-section-label">Cuentas para pago</div>
+                <div class="cxp-banklist" id="cxpPvBanks"></div>
+              </div>
+
+              <hr class="cxp-dashed">
+              <p class="cxp-disclaimer">Este documento es una nota de venta interna, referencial y de control. No constituye boleta de venta ni factura electrónica válida ante SUNAT. Conserve este comprobante como constancia de la operación realizada.</p>
+              <div class="cxp-tear"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
     <section class="page" id="page-stock">
 
       <div class="topbar">
@@ -1045,6 +1398,9 @@ var SUPABASE_ANON_KEY = "sb_publishable_ieKMBlB07Pz0ii7s1XFe8w_HOvQYAty";
               </select>
               <select id="stockFilterMarca" class="stock-filter-select">
                 <option value="">MARCA · Todo</option>
+              </select>
+              <select id="stockFilterTipo" class="stock-filter-select">
+                <option value="">TIPO · Todo</option>
               </select>
               <button class="reset-btn" id="stockRefreshBtn" style="background:var(--blue); border-color:var(--blue);">Actualizar</button>
             </div>
@@ -1364,9 +1720,10 @@ var SUPABASE_ANON_KEY = "sb_publishable_ieKMBlB07Pz0ii7s1XFe8w_HOvQYAty";
   };
 
   // Filtro interno fijo: siempre se aplica antes de mostrar cualquier dato,
-  // no es editable desde la interfaz.
+  // no es editable desde la interfaz. El TIPO ya no va fijo aquí: ahora es
+  // un filtro más que el usuario (supervisor o asesor) puede elegir desde
+  // el selector "TIPO" en pantalla.
   var FIXED_FILTERS = {
-    tipo: "EQUIPO",
     almacen: "NUEVO"
   };
 
@@ -1434,38 +1791,42 @@ var SUPABASE_ANON_KEY = "sb_publishable_ieKMBlB07Pz0ii7s1XFe8w_HOvQYAty";
         modelo: idx.modelo !== -1 ? (r[idx.modelo] || "") : "",
         sku:    idx.sku    !== -1 ? (r[idx.sku]    || "") : "",
         serie:  idx.serie  !== -1 ? (r[idx.serie]  || "") : "",
-        _tipo:    idx.tipo    !== -1 ? normalize(r[idx.tipo])    : null,
+        tipo:   idx.tipo   !== -1 ? (r[idx.tipo]   || "").trim() : "",
         _almacen: idx.almacen !== -1 ? normalize(r[idx.almacen]) : null
       };
     }).filter(function(it){ return it.punto; });
 
-    // Filtro interno fijo: solo TIPO = EQUIPO y ALMACEN = NUEVO.
-    // Si alguna de esas columnas no existe en la hoja, ese filtro simplemente no se aplica
-    // (para no ocultar todo por un nombre de columna distinto).
+    // Filtro interno fijo: solo ALMACEN = NUEVO. No es editable desde la
+    // interfaz. Si la columna no existe en la hoja, este filtro simplemente
+    // no se aplica (para no ocultar todo por un nombre de columna distinto).
     items = items.filter(function(it){
-      if(it._tipo !== null && it._tipo !== normalize(FIXED_FILTERS.tipo)) return false;
       if(it._almacen !== null && it._almacen !== normalize(FIXED_FILTERS.almacen)) return false;
       return true;
     });
 
-    return { ok:true, items:items, foundTipo: idx.tipo !== -1, foundAlmacen: idx.almacen !== -1 };
+    return { ok:true, items:items, foundAlmacen: idx.almacen !== -1 };
   }
 
   function populateFilters(){
     var puntoSelect = document.getElementById("stockFilterPunto");
     var marcaSelect = document.getElementById("stockFilterMarca");
-    var puntosSet = {}, marcasSet = {};
+    var tipoSelect = document.getElementById("stockFilterTipo");
+    var puntosSet = {}, marcasSet = {}, tiposSet = {};
     stockItems.forEach(function(it){
       if(it.punto) puntosSet[it.punto] = true;
       if(it.marca) marcasSet[it.marca] = true;
+      if(it.tipo) tiposSet[it.tipo] = true;
     });
     var puntos = Object.keys(puntosSet).sort();
     var marcas = Object.keys(marcasSet).sort();
+    var tipos = Object.keys(tiposSet).sort();
 
     puntoSelect.innerHTML = '<option value="">PUNTO DE VENTA · Todo</option>' +
       puntos.map(function(p){ return '<option value="' + p.replace(/"/g,"&quot;") + '">' + p + '</option>'; }).join("");
     marcaSelect.innerHTML = '<option value="">MARCA · Todo</option>' +
       marcas.map(function(m){ return '<option value="' + m.replace(/"/g,"&quot;") + '">' + m + '</option>'; }).join("");
+    tipoSelect.innerHTML = '<option value="">TIPO · Todo</option>' +
+      tipos.map(function(t){ return '<option value="' + t.replace(/"/g,"&quot;") + '">' + t + '</option>'; }).join("");
   }
 
   function escapeHtml(s){
@@ -1476,10 +1837,12 @@ var SUPABASE_ANON_KEY = "sb_publishable_ieKMBlB07Pz0ii7s1XFe8w_HOvQYAty";
     var tbody = document.getElementById("stockTbody");
     var filtroPunto = document.getElementById("stockFilterPunto").value;
     var filtroMarca = document.getElementById("stockFilterMarca").value;
+    var filtroTipo = document.getElementById("stockFilterTipo").value;
 
     var filtered = stockItems.filter(function(it){
       if(filtroPunto && it.punto !== filtroPunto) return false;
       if(filtroMarca && it.marca !== filtroMarca) return false;
+      if(filtroTipo && it.tipo !== filtroTipo) return false;
       return true;
     });
 
@@ -1509,7 +1872,7 @@ var SUPABASE_ANON_KEY = "sb_publishable_ieKMBlB07Pz0ii7s1XFe8w_HOvQYAty";
     var now = new Date();
     hint.textContent = "Actualizado a las " + now.toLocaleTimeString("es-PE",{hour:"2-digit",minute:"2-digit"}) +
       " — " + filtered.length + " equipos" +
-      (stockFixedFilterWarning ? " (⚠ no se encontró la columna TIPO y/o ALMACÉN; el filtro fijo Equipo/Nuevo no se aplicó)" : "");
+      (stockFixedFilterWarning ? " (⚠ no se encontró la columna ALMACÉN; el filtro fijo de Nuevo no se aplicó)" : "");
   }
 
   window.loadStock = async function(){
@@ -1537,7 +1900,7 @@ var SUPABASE_ANON_KEY = "sb_publishable_ieKMBlB07Pz0ii7s1XFe8w_HOvQYAty";
         return;
       }
       stockItems = built.items;
-      stockFixedFilterWarning = (!built.foundTipo || !built.foundAlmacen);
+      stockFixedFilterWarning = !built.foundAlmacen;
       populateFilters();
       renderStockTable();
       stockLoaded = true;
@@ -1549,8 +1912,10 @@ var SUPABASE_ANON_KEY = "sb_publishable_ieKMBlB07Pz0ii7s1XFe8w_HOvQYAty";
   document.addEventListener("DOMContentLoaded", function(){
     var puntoSelect = document.getElementById("stockFilterPunto");
     var marcaSelect = document.getElementById("stockFilterMarca");
+    var tipoSelect = document.getElementById("stockFilterTipo");
     if(puntoSelect) puntoSelect.addEventListener("change", renderStockTable);
     if(marcaSelect) marcaSelect.addEventListener("change", renderStockTable);
+    if(tipoSelect) tipoSelect.addEventListener("change", renderStockTable);
     var refreshBtn = document.getElementById("stockRefreshBtn");
     if(refreshBtn) refreshBtn.addEventListener("click", function(){ window.loadStock(); });
   });
@@ -2150,6 +2515,620 @@ var SUPABASE_ANON_KEY = "sb_publishable_ieKMBlB07Pz0ii7s1XFe8w_HOvQYAty";
         var monthSel = document.getElementById("avanceMonthSelect");
         if(monthSel && monthSel.value) renderForMonth(monthSel.value);
       });
+    }
+  });
+})();
+</script>
+
+<!-- ======================================================================
+     Control Xstore: control diario de registro de monto recaudado (Xstore)
+     y de depósito, por PDV.
+       - Fuente: hoja de Google publicada como CSV (columnas A-H: FECHA, PDV,
+         REGISTRO, MONTO XSTORE, ESTADO REGISTRO, DEPOSITO, PAYJOY,
+         ESTADO DEPÓSITO).
+       - Se muestran las columnas D a H, salvo que la columna PAYJOY (G) no
+         se pinta como columna propia: cuando su valor es 1 se agrega una
+         etiqueta "PAYJOY" al costado del Estado de depósito.
+       - Asesores: solo ven las fechas de su propio PDV (según profiles.pdv).
+       - Supervisores (o cualquier cargo que no sea Asesor): ven, en una
+         sola vista, todas las tiendas.
+       - Selector de mes arriba; por defecto se muestra el mes vigente.
+     ====================================================================== -->
+<script>
+(function(){
+  var XSTORE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQmxegvOdnEIWPoL8DmR4ZeT_nl82evjTEjBNO9LTBu7pIetA60LxQr9eGcok3eDJ3CotNoRwqwxPmo/pub?gid=570485132&single=true&output=csv";
+
+  var MONTH_NAMES_ES_X = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio",
+    "Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+
+  function normX(s){
+    return (s || "").toString().trim().toUpperCase()
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^A-Z0-9]+/g, " ").trim();
+  }
+
+  function escapeHtmlX(s){
+    return (s || "").toString().replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  }
+
+  function findColX(headers, aliases){
+    var normHeaders = headers.map(normX);
+    for(var i=0; i<aliases.length; i++){
+      var idx = normHeaders.indexOf(normX(aliases[i]));
+      if(idx !== -1) return idx;
+    }
+    return -1;
+  }
+
+  function parseCSVx(text){
+    var rows = [];
+    var row = [];
+    var field = "";
+    var inQuotes = false;
+    for(var i=0; i<text.length; i++){
+      var c = text[i];
+      if(inQuotes){
+        if(c === '"'){
+          if(text[i+1] === '"'){ field += '"'; i++; }
+          else{ inQuotes = false; }
+        }else{
+          field += c;
+        }
+      }else{
+        if(c === '"'){ inQuotes = true; }
+        else if(c === ','){ row.push(field); field = ""; }
+        else if(c === '\n'){ row.push(field); rows.push(row); row = []; field = ""; }
+        else if(c === '\r'){ /* ignorar */ }
+        else{ field += c; }
+      }
+    }
+    if(field.length || row.length){ row.push(field); rows.push(row); }
+    return rows.filter(function(r){ return r.length > 1 || (r[0] && r[0].trim() !== ""); });
+  }
+
+  async function fetchCsvTextX(url){
+    var sep = url.indexOf("?") === -1 ? "?" : "&";
+    var res = await fetch(url + sep + "_=" + Date.now());
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    return await res.text();
+  }
+
+  // Las fechas de este archivo vienen en formato peruano D/M/AAAA (ej. 23/7/2026 = 23 de julio).
+  function parseDMY(v){
+    if(!v) return null;
+    var s = v.toString().trim();
+    var m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if(m) return new Date(parseInt(m[3]), parseInt(m[2]) - 1, parseInt(m[1]));
+    var iso = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+    if(iso) return new Date(parseInt(iso[1]), parseInt(iso[2]) - 1, parseInt(iso[3]));
+    var d = new Date(s);
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  function monthKeyX(d){ return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0"); }
+  function monthLabelX(d){ return MONTH_NAMES_ES_X[d.getMonth()] + " " + d.getFullYear(); }
+  function dateLabelX(d){
+    return String(d.getDate()).padStart(2, "0") + "/" + String(d.getMonth() + 1).padStart(2, "0") + "/" + d.getFullYear();
+  }
+
+  function statusClassX(text){
+    var t = normX(text);
+    if(t.indexOf("VALIDADO") !== -1) return "status-good";
+    if(t.indexOf("NO REGISTRADO") !== -1 || t.indexOf("SIN REGISTRO") !== -1) return "status-bad";
+    return "";
+  }
+
+  var _xRows = null;      // todas las filas ya parseadas (de todos los meses)
+  var _isAsesorX = true;
+  var _profileX = null;
+
+  async function loadXstoreRows(){
+    var text = await fetchCsvTextX(XSTORE_CSV_URL);
+    var table = parseCSVx(text);
+    if(table.length === 0) return [];
+    var headers = table[0];
+    var idx = {
+      fecha: findColX(headers, ["FECHA"]),
+      pdv: findColX(headers, ["PDV"]),
+      monto: findColX(headers, ["MONTO XSTORE"]),
+      estadoRegistro: findColX(headers, ["ESTADO REGISTRO"]),
+      deposito: findColX(headers, ["DEPOSITO","DEPÓSITO"]),
+      payjoy: findColX(headers, ["PAYJOY"]),
+      estadoDeposito: findColX(headers, ["ESTADO DEPOSITO","ESTADO DEPÓSITO"])
+    };
+    var rows = [];
+    for(var i=1; i<table.length; i++){
+      var r = table[i];
+      var fechaRaw = idx.fecha !== -1 ? r[idx.fecha] : "";
+      var d = parseDMY(fechaRaw);
+      if(!d) continue;
+      var pdv = (idx.pdv !== -1 ? r[idx.pdv] : "").trim();
+      if(!pdv) continue;
+      rows.push({
+        dateObj: d,
+        dateKey: monthKeyX(d),
+        dateLabel: dateLabelX(d),
+        pdv: pdv,
+        pdvNorm: normX(pdv),
+        monto: idx.monto !== -1 ? (r[idx.monto] || "").trim() : "",
+        estadoRegistro: idx.estadoRegistro !== -1 ? (r[idx.estadoRegistro] || "").trim() : "",
+        deposito: idx.deposito !== -1 ? (r[idx.deposito] || "").trim() : "",
+        payjoy: idx.payjoy !== -1 ? Number(r[idx.payjoy]) === 1 : false,
+        estadoDeposito: idx.estadoDeposito !== -1 ? (r[idx.estadoDeposito] || "").trim() : ""
+      });
+    }
+    return rows;
+  }
+
+  function buildAvailableMonthsX(rows){
+    var months = {};
+    rows.forEach(function(r){ months[r.dateKey] = new Date(r.dateObj.getFullYear(), r.dateObj.getMonth(), 1); });
+    var keys = Object.keys(months).sort().reverse();
+    return keys.map(function(k){ return { key:k, date:months[k] }; });
+  }
+
+  function populateMonthSelectX(monthsList, selectedKey){
+    var sel = document.getElementById("xstoreMonthSelect");
+    sel.innerHTML = monthsList.map(function(m){
+      return '<option value="' + m.key + '"' + (m.key === selectedKey ? " selected" : "") + '>' +
+        escapeHtmlX(monthLabelX(m.date)) + '</option>';
+    }).join("");
+  }
+
+  function populateDaySelectX(rows, selectedLabel){
+    var sel = document.getElementById("xstoreDaySelect");
+    if(!sel) return;
+    var seen = {};
+    var days = [];
+    rows.forEach(function(r){
+      if(!seen[r.dateLabel]){ seen[r.dateLabel] = true; days.push({ label:r.dateLabel, time:r.dateObj.getTime() }); }
+    });
+    days.sort(function(a, b){ return b.time - a.time; });
+    var options = '<option value="">Día · Todos</option>' + days.map(function(d){
+      return '<option value="' + d.label + '"' + (d.label === selectedLabel ? " selected" : "") + '>' + d.label + '</option>';
+    }).join("");
+    sel.innerHTML = options;
+  }
+
+  function renderXstoreForMonth(monthKeySel){
+    var hint = document.getElementById("xstoreHint");
+    var tbody = document.getElementById("xstoreTbody");
+    var pdvCols = document.querySelectorAll(".xstore-pdv-col");
+    var daySelect = document.getElementById("xstoreDaySelect");
+
+    var showPdvCol = !_isAsesorX;
+    pdvCols.forEach(function(el){ el.classList.toggle("is-hidden", !showPdvCol); });
+
+    var monthFiltered = _xRows.filter(function(r){
+      if(r.dateKey !== monthKeySel) return false;
+      if(_isAsesorX && r.pdvNorm !== normX(_profileX.pdv)) return false;
+      return true;
+    });
+
+    // El filtro de día solo tiene sentido para la vista de supervisor (varias
+    // tiendas a la vez); en la vista de asesor se oculta.
+    var selectedDay = "";
+    if(daySelect){
+      if(_isAsesorX){
+        daySelect.style.display = "none";
+      }else{
+        daySelect.style.display = "";
+        populateDaySelectX(monthFiltered, daySelect.value);
+        selectedDay = daySelect.value;
+      }
+    }
+
+    var filtered = selectedDay
+      ? monthFiltered.filter(function(r){ return r.dateLabel === selectedDay; })
+      : monthFiltered;
+
+    filtered.sort(function(a, b){
+      if(a.dateObj.getTime() !== b.dateObj.getTime()) return b.dateObj.getTime() - a.dateObj.getTime();
+      return a.pdv.localeCompare(b.pdv, "es");
+    });
+
+    if(filtered.length === 0){
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:var(--ink-soft);">' +
+        'No hay datos para el mes seleccionado.</td></tr>';
+      hint.textContent = "0 registros";
+      return;
+    }
+
+    var html = "";
+    var lastDateKey = null;
+    filtered.forEach(function(r){
+      var dayKey = r.dateObj.getTime();
+      var isNewDate = dayKey !== lastDateKey;
+      lastDateKey = dayKey;
+
+      var estadoRegistroClass = statusClassX(r.estadoRegistro);
+      var estadoDepositoClass = statusClassX(r.estadoDeposito);
+      var payjoyTag = r.payjoy ? ' <span class="payjoy-tag">Payjoy</span>' : "";
+
+      html += '<tr' + (isNewDate ? ' data-newdate="1"' : '') + '>' +
+        '<td>' + escapeHtmlX(r.dateLabel) + '</td>' +
+        '<td class="xstore-pdv-col' + (showPdvCol ? "" : " is-hidden") + '">' + escapeHtmlX(r.pdv) + '</td>' +
+        '<td class="xstore-money">' + escapeHtmlX(r.monto) + '</td>' +
+        '<td class="' + estadoRegistroClass + '">' + escapeHtmlX(r.estadoRegistro) + '</td>' +
+        '<td class="xstore-money">' + escapeHtmlX(r.deposito) + '</td>' +
+        '<td class="' + estadoDepositoClass + '">' + escapeHtmlX(r.estadoDeposito) + payjoyTag + '</td>' +
+        '</tr>';
+    });
+    tbody.innerHTML = html;
+    hint.textContent = filtered.length + " registro(s) · " + monthLabelX(filtered[0] ? new Date(monthKeySel + "-01") : new Date());
+  }
+
+  window.loadXstore = async function(){
+    var hint = document.getElementById("xstoreHint");
+    var tbody = document.getElementById("xstoreTbody");
+    var profile = window.currentUserProfile;
+
+    if(!profile){
+      hint.textContent = "No se pudo identificar tu usuario.";
+      return;
+    }
+    _profileX = profile;
+
+    var cargo = "";
+    try{
+      var cargoRes = await window.supabaseClient
+        .from("profiles").select("cargo").eq("email", profile.email).maybeSingle();
+      cargo = (cargoRes.data && cargoRes.data.cargo) || "";
+    }catch(e){ cargo = ""; }
+    _isAsesorX = normX(cargo) === "ASESOR" || normX(cargo) === "";
+
+    var crearBtn = document.getElementById("xstoreCrearBtn");
+    var titleEl = document.getElementById("xstoreTitle");
+    if(crearBtn) crearBtn.style.display = _isAsesorX ? "" : "none";
+    if(titleEl){
+      titleEl.textContent = "Registro y depósito diario" +
+        (_isAsesorX && profile.pdv ? " - " + profile.pdv : "");
+    }
+
+    if(_isAsesorX && !profile.pdv){
+      hint.textContent = "Tu usuario no tiene un PDV asignado todavía. Pide que te agreguen la columna pdv en profiles (Supabase).";
+      tbody.innerHTML = "";
+      return;
+    }
+
+    hint.textContent = "Cargando datos…";
+    try{
+      _xRows = await loadXstoreRows();
+      if(_xRows.length === 0){
+        hint.textContent = "No se encontraron datos en el archivo.";
+        tbody.innerHTML = "";
+        return;
+      }
+      var monthsList = buildAvailableMonthsX(_xRows);
+      var todayKey = monthKeyX(new Date());
+      var defaultKey = monthsList.some(function(m){ return m.key === todayKey; }) ? todayKey : monthsList[0].key;
+      populateMonthSelectX(monthsList, defaultKey);
+      renderXstoreForMonth(defaultKey);
+    }catch(e){
+      hint.textContent = "No se pudo cargar el control Xstore. Verifica tu conexión e intenta de nuevo.";
+      console.error(e);
+    }
+  };
+
+  document.addEventListener("DOMContentLoaded", function(){
+    var monthSelect = document.getElementById("xstoreMonthSelect");
+    if(monthSelect){
+      monthSelect.addEventListener("change", function(){
+        var daySelect = document.getElementById("xstoreDaySelect");
+        if(daySelect) daySelect.value = ""; // al cambiar de mes, se reinicia el filtro de día
+        if(_xRows) renderXstoreForMonth(monthSelect.value);
+      });
+    }
+    var daySelect = document.getElementById("xstoreDaySelect");
+    if(daySelect){
+      daySelect.addEventListener("change", function(){
+        var monthSel = document.getElementById("xstoreMonthSelect");
+        if(_xRows && monthSel) renderXstoreForMonth(monthSel.value);
+      });
+    }
+    var refreshBtn = document.getElementById("xstoreRefreshBtn");
+    if(refreshBtn){
+      refreshBtn.addEventListener("click", function(){
+        if(typeof window.loadXstore === "function") window.loadXstore();
+      });
+    }
+    var crearBtn = document.getElementById("xstoreCrearBtn");
+    if(crearBtn){
+      crearBtn.addEventListener("click", function(){
+        document.querySelectorAll(".page").forEach(function(p){ p.classList.remove("active"); });
+        var target = document.getElementById("page-xstore-crear");
+        if(target) target.classList.add("active");
+      });
+    }
+    var crearBackBtn = document.getElementById("xstoreCrearBackBtn");
+    if(crearBackBtn){
+      crearBackBtn.addEventListener("click", function(){
+        document.querySelectorAll(".page").forEach(function(p){ p.classList.remove("active"); });
+        var target = document.getElementById("page-xstore");
+        if(target) target.classList.add("active");
+      });
+    }
+  });
+})();
+</script>
+
+<!-- ======================================================================
+     Comprobante de Pago: genera una nota de venta interna (no es boleta ni
+     factura SUNAT) con los datos del negocio, del cliente, los equipos
+     vendidos y el pago recibido, con una vista previa tipo ticket lista
+     para imprimir/guardar como PDF y compartir por WhatsApp.
+       - Los datos del negocio y el siguiente número de nota se guardan en
+         este navegador (localStorage), por eso cada asesor solo necesita
+         llenarlos la primera vez.
+     ====================================================================== -->
+<script>
+(function(){
+  var CXP_BIZ_KEY = "fortalecernos_cxp_biz_defaults";
+  var CXP_NEXT_NUM_KEY = "fortalecernos_cxp_next_doc_num";
+
+  var itemIdSeq = 0;
+  var bankIdSeq = 0;
+
+  function cxpCurrency(n){
+    n = isNaN(n) ? 0 : n;
+    return "S/. " + n.toFixed(2);
+  }
+
+  function addCxpItemRow(desc, qty, price, imei1, imei2){
+    desc = desc || ""; qty = (qty === undefined || qty === null) ? 1 : qty; price = price || "";
+    imei1 = imei1 || ""; imei2 = imei2 || "";
+    var n = ++itemIdSeq;
+    var wrap = document.createElement("div");
+    wrap.className = "cxp-item-card";
+    wrap.innerHTML =
+      '<div class="cxp-item-card-head">' +
+        '<span>Equipo ' + n + '</span>' +
+        '<button type="button" class="cxp-del-btn" aria-label="Eliminar equipo">×</button>' +
+      '</div>' +
+      '<input type="text" class="cxp-input cxp-it-desc" placeholder="Ej. iPhone 13 128GB Negro" value="' + desc + '">' +
+      '<div class="cxp-imei-row">' +
+        '<div><label class="cxp-mini-label">IMEI 1</label><input type="text" class="cxp-input cxp-it-imei1" placeholder="356XXXXXXXXXXXX" value="' + imei1 + '"></div>' +
+        '<div><label class="cxp-mini-label">IMEI 2 (si es dual SIM)</label><input type="text" class="cxp-input cxp-it-imei2" placeholder="Opcional" value="' + imei2 + '"></div>' +
+      '</div>' +
+      '<div class="cxp-qty-price-row">' +
+        '<div><label class="cxp-mini-label">Cantidad</label><input type="number" class="cxp-input cxp-it-qty" min="1" value="' + qty + '"></div>' +
+        '<div><label class="cxp-mini-label">Precio (S/)</label><input type="number" class="cxp-input cxp-it-price" placeholder="0.00" step="0.01" value="' + price + '"></div>' +
+      '</div>';
+    wrap.querySelector(".cxp-del-btn").addEventListener("click", function(){ wrap.remove(); cxpRender(); });
+    wrap.querySelectorAll("input").forEach(function(inp){ inp.addEventListener("input", cxpRender); });
+    document.getElementById("cxpItemsWrap").appendChild(wrap);
+  }
+
+  function addCxpBankRow(banco, cuenta, titular){
+    banco = banco || ""; cuenta = cuenta || ""; titular = titular || "";
+    bankIdSeq++;
+    var wrap = document.createElement("div");
+    wrap.className = "cxp-bank-row";
+    wrap.innerHTML =
+      '<input type="text" class="cxp-input cxp-bk-banco" placeholder="Banco / Yape" value="' + banco + '">' +
+      '<input type="text" class="cxp-input cxp-bk-cuenta" placeholder="N° cuenta / celular" value="' + cuenta + '">' +
+      '<input type="text" class="cxp-input cxp-bk-titular" placeholder="Titular" value="' + titular + '">' +
+      '<button type="button" class="cxp-del-btn" aria-label="Eliminar">×</button>';
+    wrap.querySelector(".cxp-del-btn").addEventListener("click", function(){ wrap.remove(); cxpRender(); });
+    wrap.querySelectorAll("input").forEach(function(inp){ inp.addEventListener("input", cxpRender); });
+    document.getElementById("cxpBanksWrap").appendChild(wrap);
+  }
+
+  function cxpVal(id){ var el = document.getElementById(id); return el ? el.value : ""; }
+
+  function cxpRender(){
+    var bizName = cxpVal("cxpBizName").trim() || "TU NEGOCIO";
+    var bizRuc = cxpVal("cxpBizRuc").trim();
+    var bizAddr = cxpVal("cxpBizAddr").trim();
+    var bizPhone = cxpVal("cxpBizPhone").trim();
+
+    document.getElementById("cxpPvBizName").textContent = bizName;
+    var subParts = [bizRuc ? "RUC " + bizRuc : null, bizAddr, bizPhone].filter(Boolean);
+    document.getElementById("cxpPvBizSub").textContent = subParts.length ? subParts.join(" · ") : "RUC · DIRECCIÓN · TELÉFONO";
+
+    document.getElementById("cxpPvDocNum").textContent = "N° " + (cxpVal("cxpDocNum").trim() || "00000001");
+
+    var dateVal = cxpVal("cxpDocDate");
+    document.getElementById("cxpPvDate").textContent = dateVal
+      ? new Date(dateVal + "T00:00:00").toLocaleDateString("es-PE", { day:"2-digit", month:"2-digit", year:"numeric" })
+      : "—";
+    document.getElementById("cxpPvModo").textContent = cxpVal("cxpDocModo");
+
+    document.getElementById("cxpPvCliName").textContent = cxpVal("cxpCliName").trim() || "—";
+    document.getElementById("cxpPvCliDoc").textContent = cxpVal("cxpCliDoc").trim() || "—";
+    var cliPhone = cxpVal("cxpCliPhone").trim();
+    document.getElementById("cxpPvCliPhone").textContent = cliPhone || "—";
+    var cliAddr = cxpVal("cxpCliAddr").trim();
+    document.getElementById("cxpPvCliAddrRow").style.display = cliAddr ? "flex" : "none";
+    document.getElementById("cxpPvCliAddr").textContent = cliAddr;
+
+    // equipos
+    var rows = Array.prototype.slice.call(document.querySelectorAll("#cxpItemsWrap .cxp-item-card"));
+    var total = 0;
+    var tbody = document.getElementById("cxpPvItems");
+    tbody.innerHTML = "";
+    rows.forEach(function(r){
+      var desc = r.querySelector(".cxp-it-desc").value.trim();
+      var imei1 = r.querySelector(".cxp-it-imei1").value.trim();
+      var imei2 = r.querySelector(".cxp-it-imei2").value.trim();
+      var qty = parseFloat(r.querySelector(".cxp-it-qty").value) || 0;
+      var price = parseFloat(r.querySelector(".cxp-it-price").value) || 0;
+      var sub = qty * price;
+      total += sub;
+      if(!desc && !price) return;
+      var imeiLines = [imei1 ? "IMEI 1: " + imei1 : null, imei2 ? "IMEI 2: " + imei2 : null].filter(Boolean).join("<br>");
+      var tr = document.createElement("tr");
+      tr.innerHTML = '<td><span class="cxp-item-desc">' + (desc || "(sin descripción)") + '</span><br>' +
+        '<span class="cxp-item-sub">' + cxpCurrency(price) + ' c/u</span>' +
+        (imeiLines ? '<br><span class="cxp-item-sub">' + imeiLines + '</span>' : '') + '</td>' +
+        '<td class="cxp-num">' + qty + '</td><td class="cxp-num">' + cxpCurrency(sub) + '</td>';
+      tbody.appendChild(tr);
+    });
+    if(rows.length === 0){
+      tbody.innerHTML = '<tr><td colspan="3" style="color:var(--ink-soft); padding:8px 0;">Agrega equipos en el formulario…</td></tr>';
+    }
+
+    document.getElementById("cxpPvTotal").textContent = cxpCurrency(total);
+    var paid = parseFloat(cxpVal("cxpPayAmount")) || 0;
+    var balance = parseFloat(cxpVal("cxpPayBalance"));
+    document.getElementById("cxpPvPaid").textContent = cxpCurrency(paid);
+    document.getElementById("cxpPvPayMethod").textContent = cxpVal("cxpPayMethod");
+    document.getElementById("cxpPvBalance").textContent = cxpCurrency(isNaN(balance) ? Math.max(total - paid, 0) : balance);
+
+    var op = cxpVal("cxpPayOp").trim();
+    document.getElementById("cxpPvOpRow").style.display = op ? "flex" : "none";
+    document.getElementById("cxpPvOp").textContent = op;
+
+    // cuentas
+    var bankRows = Array.prototype.slice.call(document.querySelectorAll("#cxpBanksWrap .cxp-bank-row"));
+    var banksBlock = document.getElementById("cxpPvBanksBlock");
+    var banksList = document.getElementById("cxpPvBanks");
+    banksList.innerHTML = "";
+    var any = false;
+    bankRows.forEach(function(r){
+      var banco = r.querySelector(".cxp-bk-banco").value.trim();
+      var cuenta = r.querySelector(".cxp-bk-cuenta").value.trim();
+      var titular = r.querySelector(".cxp-bk-titular").value.trim();
+      if(!banco && !cuenta) return;
+      any = true;
+      var line = document.createElement("div");
+      line.className = "cxp-bankline";
+      line.innerHTML = "<span>" + banco + (titular ? " · " + titular : "") + "</span><span>" + cuenta + "</span>";
+      banksList.appendChild(line);
+    });
+    banksBlock.style.display = any ? "block" : "none";
+
+    // enlace de WhatsApp
+    var waBtn = document.getElementById("cxpWaBtn");
+    var cliPhoneRaw = cxpVal("cxpCliPhone").trim();
+    var cliNameVal = cxpVal("cxpCliName").trim();
+    var digits = cliPhoneRaw.replace(/[^0-9]/g, "");
+
+    if(digits.length >= 8){
+      var waPhone = digits;
+      if(waPhone.length === 9) waPhone = "51" + waPhone; // celular Perú, se agrega el código de país
+      else if(waPhone.indexOf("51") !== 0 && waPhone.length < 11) waPhone = "51" + waPhone;
+
+      var models = rows.map(function(r){ return r.querySelector(".cxp-it-desc").value.trim(); }).filter(Boolean);
+      var modelsText = models.length ? models.join(", ") : "tu equipo";
+      var docNumVal = cxpVal("cxpDocNum").trim() || "00000001";
+      var balanceVal = isNaN(balance) ? Math.max(total - paid, 0) : balance;
+
+      var msg = "Hola " + (cliNameVal || "") + ", te comparto tu comprobante de venta por tu " + modelsText + ". Total: " + cxpCurrency(total) + ".";
+      if(balanceVal > 0){
+        msg += " Pagado: " + cxpCurrency(paid) + ". Saldo pendiente: " + cxpCurrency(balanceVal) + ".";
+      }
+      msg += " ¡Gracias por tu compra!";
+
+      waBtn.href = "https://wa.me/" + waPhone + "?text=" + encodeURIComponent(msg);
+      waBtn.classList.remove("is-disabled");
+    }else{
+      waBtn.href = "#";
+      waBtn.classList.add("is-disabled");
+    }
+  }
+
+  var CXP_FALLBACK_BIZ = {
+    name: "FORTALECERNOS S.A.C.",
+    ruc: "20611685689",
+    addr: "JR. SAENZ PEÑA NRO. 451 DPTO. 302, LIMA - LIMA - MAGDALENA DEL MAR",
+    phone: "",
+    banks: []
+  };
+
+  function loadCxpDefaults(){
+    var d = CXP_FALLBACK_BIZ;
+    try{
+      var raw = localStorage.getItem(CXP_BIZ_KEY);
+      if(raw) d = JSON.parse(raw);
+    }catch(e){ /* nada guardado aún, se usa el valor por defecto */ }
+
+    document.getElementById("cxpBizName").value = d.name || "";
+    document.getElementById("cxpBizRuc").value = d.ruc || "";
+    document.getElementById("cxpBizAddr").value = d.addr || "";
+    document.getElementById("cxpBizPhone").value = d.phone || "";
+    if(Array.isArray(d.banks) && d.banks.length){
+      d.banks.forEach(function(b){ addCxpBankRow(b.banco, b.cuenta, b.titular); });
+    }
+
+    var next = "00000001";
+    try{
+      next = localStorage.getItem(CXP_NEXT_NUM_KEY) || "00000001";
+    }catch(e){ next = "00000001"; }
+    document.getElementById("cxpDocNum").value = next;
+  }
+
+  var _cxpInited = false;
+  window.initComprobante = function(){
+    if(_cxpInited) return;
+    _cxpInited = true;
+
+    document.getElementById("cxpAddItem").addEventListener("click", function(){ addCxpItemRow(); cxpRender(); });
+    document.getElementById("cxpAddBank").addEventListener("click", function(){ addCxpBankRow(); cxpRender(); });
+    document.getElementById("cxpPrintBtn").addEventListener("click", function(){ window.print(); });
+
+    ["cxpBizName","cxpBizRuc","cxpBizAddr","cxpBizPhone","cxpCliName","cxpCliDoc","cxpCliPhone","cxpCliAddr",
+     "cxpDocNum","cxpDocDate","cxpDocModo","cxpPayMethod","cxpPayOp","cxpPayAmount","cxpPayBalance"]
+      .forEach(function(id){
+        var el = document.getElementById(id);
+        if(el) el.addEventListener("input", cxpRender);
+      });
+    document.getElementById("cxpDocModo").addEventListener("change", cxpRender);
+    document.getElementById("cxpPayMethod").addEventListener("change", cxpRender);
+
+    document.getElementById("cxpSaveDefaults").addEventListener("click", function(){
+      var banks = Array.prototype.slice.call(document.querySelectorAll("#cxpBanksWrap .cxp-bank-row")).map(function(r){
+        return {
+          banco: r.querySelector(".cxp-bk-banco").value.trim(),
+          cuenta: r.querySelector(".cxp-bk-cuenta").value.trim(),
+          titular: r.querySelector(".cxp-bk-titular").value.trim()
+        };
+      }).filter(function(b){ return b.banco || b.cuenta; });
+
+      var data = {
+        name: cxpVal("cxpBizName").trim(),
+        ruc: cxpVal("cxpBizRuc").trim(),
+        addr: cxpVal("cxpBizAddr").trim(),
+        phone: cxpVal("cxpBizPhone").trim(),
+        banks: banks
+      };
+      try{
+        localStorage.setItem(CXP_BIZ_KEY, JSON.stringify(data));
+        // se avanza el siguiente número de nota
+        var cur = cxpVal("cxpDocNum").trim();
+        var num = parseInt(cur, 10);
+        if(!isNaN(num)){
+          var next = String(num + 1).padStart(cur.length, "0");
+          localStorage.setItem(CXP_NEXT_NUM_KEY, next);
+        }
+        var btn = document.getElementById("cxpSaveDefaults");
+        var original = btn.textContent;
+        btn.textContent = "Guardado ✓";
+        setTimeout(function(){ btn.textContent = original; }, 1600);
+      }catch(e){
+        alert("No se pudo guardar. Intenta de nuevo.");
+      }
+    });
+
+    addCxpItemRow();
+    document.getElementById("cxpDocDate").valueAsDate = new Date();
+    loadCxpDefaults();
+    cxpRender();
+  };
+
+  document.addEventListener("DOMContentLoaded", function(){
+    var navItems = document.querySelectorAll(".nav-item");
+    navItems.forEach(function(item){
+      item.addEventListener("click", function(){
+        if(item.getAttribute("data-page") === "comprobante" && typeof window.initComprobante === "function"){
+          window.initComprobante();
+        }
+      });
+    });
+    // por si la pestaña Comprobante ya viene activa al cargar la página
+    var comprobantePage = document.getElementById("page-comprobante");
+    if(comprobantePage && comprobantePage.classList.contains("active")){
+      window.initComprobante();
     }
   });
 })();
